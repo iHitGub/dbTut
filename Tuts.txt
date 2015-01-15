@@ -1,0 +1,79 @@
+/*Simple two Join*/
+SELECT product.ProductID, Name, ProductNumber, OrderQty 
+FROM product
+INNER JOIN salesorderdetail
+ON product.ProductID = salesorderdetail.ProductID
+ORDER BY OrderQty
+
+/*Simple three Join*/
+SELECT product.ProductID, Name, ProductNumber, OrderQty, salesorderdetail.SpecialOfferID 
+FROM product
+INNER JOIN salesorderdetail
+ON product.ProductID = salesorderdetail.ProductID
+INNER JOIN specialoffer
+ON salesorderdetail.SpecialOfferID = specialoffer.SpecialOfferID
+ORDER BY OrderQty
+
+/*Simple SUM*/
+SELECT SUM( DiscountPct ) AS TotalDisc
+FROM specialoffer
+
+/*Simple AVG*/
+SELECT AVG( DiscountPct ) AS avgDisc
+FROM specialoffer
+
+/*Simple MAX*/
+SELECT MAX( DiscountPct ) AS maxDisc
+FROM specialoffer
+
+/*Simple MIN*/
+SELECT MIN( DiscountPct ) AS minDisc
+FROM specialoffer
+
+/*Simple GROUP BY*/
+SELECT ProductID, SUM( LineTotal ) AS TotalOrders
+FROM  salesorderdetail
+GROUP BY ProductID
+
+/*Simple COUNT*/
+SELECT COUNT(ProductID) AS TotalRecords
+FROM  salesorderdetail
+
+/*Simple Create*/
+CREATE TABLE Employees (
+empID 		SMALLINT NOT NULL PRIMARY KEY,
+empName	 	VARCHAR(20),
+salary 		SMALLINT,
+dept 		SMALLINT
+)
+
+/*Simple UPDATE*/
+UPDATE Member
+SET surname = 'Daniels',
+telNo = '07728626626',
+dept = 'Computing',
+usertype = 'student'
+WHERE
+memberNo = 5212
+
+/*Simple INSERT*/
+INSERT INTO Member
+(memberNo, surname, forename, telNo, dept, fines, usertype)
+VALUES
+(3212, 'Dany', 'Cox', 0123456789, 'Music', 2.22, 'staff')
+
+/*Simple DELETE*/
+DELETE FROM book
+WHERE bookNo IN (select bookNo from loan
+WHERE dueBack <= '2005-06-25 00:00:00')
+
+/*Simple VIEW*/
+CREATE VIEW vBook AS						
+SELECT * FROM Book
+
+/*Simple VIEW UPDATE*/
+UPDATE vBook
+SET title = 'updating views',
+author = 'Dany Cox'
+WHERE
+bookNo = 99657611
